@@ -1,0 +1,6 @@
+# smartpact
+Deploying program "smartpact"...
+Program path: /home/m_h_t-musa/smartpact/target/deploy/smartpact.so...
+Program Id: FE6L5PyBqewwGkMHHfTArWNQtvpUbD9Be1Hop3QJ47ip
+
+Signature: 61hAukDbWurwYGGAryJaGh7aAvFpRomn2oM7cir2bkhxy7t4mX9eQgfD7czX3X2nQrDzBMyYcKKJCAKtSzfLSTDQ
