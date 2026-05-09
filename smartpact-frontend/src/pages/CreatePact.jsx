@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"; 
+import { useState, useMemo } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { LiFiWidget } from '@lifi/widget';
 
@@ -10,41 +10,38 @@ export default function CreatePact() {
   const [description, setDescription] = useState("");
   const [reward, setReward] = useState("");
 
-  // Function to handle the form submission
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the page from refreshing
-    
-    // For now, we will just log the data. 
-    // Later, this is where we will call Lerato's Rust program!
-    console.log("Submitting Pact:", { title, description, reward });
-    alert(`Pact "${title}" is ready to be sent to the blockchain!`);
-  };
-
   // Configuration for the LI.FI Widget
   const widgetConfig = useMemo(() => ({
-    integrator: 'SmartPact', // Your team/app name
+    integrator: 'SmartPact',
     containerStyle: {
       border: '1px solid rgb(234, 234, 234)',
       borderRadius: '16px',
     },
-    // We want the user to end up with SOL on Solana
-    toChain: 1151111081099710, // Solana Mainnet ID (for devnet testing, LI.FI usually simulates)
-    toToken: '11111111111111111111111111111111', // Native SOL address
+    // Focus on landing the user on Solana
+    toChain: 1151111081099710, 
+    toToken: '11111111111111111111111111111111', // Native SOL
     appearance: 'light', 
     variant: 'compact',
   }), []);
 
+  // Function to handle the form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitting Pact:", { title, description, reward });
+    alert(`Pact "${title}" is ready to be sent to the blockchain!`);
+  };
+
   return (
     <div className="p-8 max-w-2xl mx-auto">
-      <div className="mb-8">
+      <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-900">Create a New Pact</h1>
-        <p className="text-gray-600 mt-2">Lock SOL in the escrow to hire a neighbour for a task.</p>
+        <p className="text-gray-600 mt-2">Lock SOL in escrow to hire a neighbour for a task.</p>
       </div>
 
       <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
         <form onSubmit={handleSubmit} className="space-y-6">
           
-          {/* Title Input */}
+          {/* Task Title */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Task Title</label>
             <input 
@@ -57,12 +54,12 @@ export default function CreatePact() {
             />
           </div>
 
-          {/* Description Input */}
+          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Detailed Description</label>
             <textarea 
               required
-              rows="4"
+              rows="3"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
@@ -84,17 +81,27 @@ export default function CreatePact() {
             />
           </div>
 
-          {/* LI.FI Widget Placeholder - We will add this soon! */}
-          <div className="p-4 bg-purple-50 border border-purple-100 rounded-md text-sm text-purple-800 border-dashed">
-            [LI.FI Widget Integration will go here for cross-chain funding]
+          {/* LI.FI Widget Integration */}
+          <div className="py-4">
+            <p className="text-sm font-semibold text-gray-700 mb-3 text-center">
+              Don't have SOL? Fund from any chain:
+            </p>
+            <div className="flex justify-center">
+              <LiFiWidget 
+                integrator="SmartPact" 
+                config={widgetConfig} 
+              />
+            </div>
           </div>
 
           {/* Submit Button */}
           <button 
             type="submit" 
             disabled={!connected}
-            className={`w-full py-3 px-4 rounded-md font-bold text-white transition-colors ${
-              connected ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
+            className={`w-full py-4 px-4 rounded-md font-bold text-white shadow-lg transition-all ${
+              connected 
+                ? "bg-green-600 hover:bg-green-700 active:scale-95" 
+                : "bg-gray-400 cursor-not-allowed"
             }`}
           >
             {connected ? "Lock Reward & Create Pact" : "Connect Wallet to Create"}

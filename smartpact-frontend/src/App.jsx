@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Dashboard from "./pages/Dashboard";
-import CreatePact from "./pages/CreatePact"; // <-- We import your new form here!
+import CreatePact from "./pages/CreatePact";
+import PactDetail from "./pages/PactDetail";
 
 export default function App() {
   return (
@@ -14,8 +15,8 @@ export default function App() {
           
           {/* We swapped out the placeholder <div> for your actual component here: */}
           <Route path="/create" element={<CreatePact />} />
-          
           <Route path="/ledger" element={<div className="p-8">Public Ledger Coming Soon...</div>} />
+          <Route path="/pact/:id" element={<PactDetail />} />
         </Routes>
       </main>
     </div>
