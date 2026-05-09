@@ -1,18 +1,18 @@
 [toolchain]
 
 [features]
-resolution = true
+seeds = false
 skip-lint = false
 
-[programs.devnet]
-smartpact = "4k4btq9LN1e2cCGepBA2yFEmm4U8t2Wa1E3t92BpcbUs"
+[programs.localnet]
+temp_backend = "9FtQSzVqHYN7zb5QsyoUNgNatUEvx1MqywwakwdJjTNp"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Devnet"
-wallet = "~/.config/solana/id.json"
+cluster = "Localnet"
+wallet = "/home/m_h_t-musa/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
